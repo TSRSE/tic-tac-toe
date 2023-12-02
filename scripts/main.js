@@ -24,7 +24,10 @@ const gameStateManager = (function(){
         if (currentStage == 'ended' && document.getElementById('next-game').hasAttribute('disabled')) {
             document.getElementById('next-game').toggleAttribute('disabled')
         }
-        // currentStage == 'ended' ? document.getElementById('next-game').setAttribute('disabled', 'false') : document.getElementById('next-game').setAttribute('disabled', 'true'); 
+        if (currentStage == 'playing' && !document.getElementById('next-game').hasAttribute('disabled')) {
+            document.getElementById('next-game').toggleAttribute('disabled')
+        }
+
         console.log(currentStage) }
     const getCurrentStage = () => currentStage
     
@@ -37,8 +40,6 @@ const gameStateManager = (function(){
     document.getElementById('reset').addEventListener('click', () => {reset(); startGame()})
 
     document.getElementById('next-game').addEventListener('click', () => {startGame();})
-
-    // const toggleNextGameButton = () => { document.getElementById('next-game').toggleAttribute('disabled') }
 
     function reset(){
         Player1.reset()
@@ -165,7 +166,6 @@ const gridController = (function(){
 
         if (array.find(x => x.state == undefined) == undefined) {
             alert('DRAW!')
-            // gameStateManager.reset()
             return;
         }
     }
